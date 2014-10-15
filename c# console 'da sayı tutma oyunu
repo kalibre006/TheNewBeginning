@@ -1,0 +1,229 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace evdekiConsoleCalismalari
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string user1;
+
+            //kullanıcı tarafından girilenler
+            int kul_tahmin = 0, zorluk_derc;
+            int rnd_sayi = 0, hak = 0, rnd_min = 0, rnd_max = 0, puan_katsayi = 0, puan = 0;
+            Random rnd = new Random();
+
+
+            Console.WriteLine("Adınızı Giriniz");
+            user1 = Console.ReadLine();
+
+            for (; ; )
+            {
+                Console.Clear();
+                Console.WriteLine("hoşgeldin {0} sayı tutma oyunu senin için hazırlanıyor lutfen bekleyiniz.", user1.ToUpper());
+                for (int i = 1; i < 50; i++)
+                {
+                    System.Threading.Thread.Sleep(30);
+                    Console.Write("                  -");
+                }
+
+                Console.Clear();
+                bool switch_kontrol = true;
+                while (switch_kontrol)
+                {
+                    Console.WriteLine("1 , 2 , 3 zorluk derecesini seçiniz ");
+                    try
+                    {
+                        zorluk_derc = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch (Exception)
+                    {
+
+                        Console.WriteLine("Hatalı bir giriş yaptınız.");
+                        continue;
+                    }
+
+                    Console.Clear();
+
+
+                    #region switch
+
+                    switch (zorluk_derc)
+                    {
+
+                        case 1:
+                            hak = 5; rnd_min = 0; rnd_max = 10; puan_katsayi = 5;
+                            string derece = "KOLAY";
+                            Console.Clear();
+                            Console.WriteLine("{0} dereceyi seçtiniz \n Oyunumuz başlıyor...\n\n", derece);
+                            for (int i = 1; i < 40; i++)
+                            {
+                                System.Threading.Thread.Sleep(30);
+                                Console.Write("                  -");
+                            }
+                            Console.Clear();
+                            Console.WriteLine("{1} ila {2} arasındaki bir sayiyi tahmin ediniz.{0} hakkınız var. ", hak, rnd_min, rnd_max);
+                            rnd_sayi = rnd.Next(rnd_min, rnd_max);
+                            switch_kontrol = false;
+                            break;
+                        case 2:
+                            hak = 5; rnd_min = 0; rnd_max = 25; derece = "orta"; puan_katsayi = 10;
+                            Console.Clear();
+                            Console.WriteLine("{0} dereceyi seçtiniz \n Oyunumuz başlıyor...\n\n", derece);
+                            for (int i = 1; i < 40; i++)
+                            {
+                                System.Threading.Thread.Sleep(30);
+                                Console.Write("                  -");
+                            }
+                            Console.Clear();
+                            Console.WriteLine("{1} ila {2} arasındaki bir sayiyi tahmin ediniz.{0} hakkınız var. ", hak, rnd_min, rnd_max);
+
+                            rnd_sayi = rnd.Next(rnd_min, rnd_max);
+                            switch_kontrol = false;
+                            break;
+
+                        case 3:
+                            hak = 3; rnd_min = 0; rnd_max = 50; derece = "ZOR"; puan_katsayi = 30;
+                            Console.Clear();
+                            Console.WriteLine("{0} dereceyi seçtiniz \n Oyunumuz başlıyor...\n\n", derece);
+                            for (int i = 1; i < 40; i++)
+                            {
+                                System.Threading.Thread.Sleep(30);
+                                Console.Write("                  -");
+                            }
+                            Console.Clear();
+                            Console.WriteLine("{1} ila {2} arasındaki bir sayiyi tahmin ediniz.{0} hakkınız var. ", hak, rnd_min, rnd_max);
+                            rnd_sayi = rnd.Next(rnd_min, rnd_max);
+                            switch_kontrol = false;
+                            break;
+
+                        default: Console.WriteLine("Yanlış veri girişi yaptınız.");
+                            switch_kontrol = true;
+                            break;
+                    }
+                }
+
+                    #endregion
+
+                for (; ; )
+                {
+                    bool kullanici_tahmin = true;
+                    kullanici_tahmin = Int32.TryParse(Console.ReadLine(), out kul_tahmin);
+
+                    while (kullanici_tahmin != true || kul_tahmin < rnd_min || kul_tahmin > rnd_max)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("{0} - {1} arası degerler girmeniz gerekmektedir.", rnd_min, rnd_max);
+                        kullanici_tahmin = Int32.TryParse(Console.ReadLine(), out kul_tahmin);
+
+                    }
+
+                    //try
+                    //{
+                    //    kul_tahmin = Convert.ToInt32(Console.ReadLine());
+                    //}
+
+                    //catch (Exception)
+                    //{
+
+                    //    Console.WriteLine("Hatalı bir giriş yaptınız. Lütfen tekrar deneyiniz.")
+                    //    continue;
+                    //}
+
+                    //for (int i = rnd_min; i <= rnd_max; i++)
+                    //{
+                    //    if (kul_tahmin == i)
+                    //    {
+                    //        kullanici_tahmin = false;
+                    //        break;
+                    //    }
+
+                    //}
+                    //if (kullanici_tahmin == true)
+                    //{
+                    //    Console.WriteLine("{0} - {1} arası degerler girmeniz gerekmektedir.", rnd_min, rnd_max);
+                    //}
+
+                    //  }
+
+                    hak--;
+                    if (kul_tahmin == rnd_sayi)
+                    {
+                        puan = (hak + 1) * puan_katsayi;
+                        for (int i = 0; i < 30; i++)
+                        {
+                            System.Threading.Thread.Sleep(50);
+                            Console.Write("                  -");
+                        }
+                        Console.WriteLine("TEBRİKLER ! {1}   {0} puan kazandın.", puan, user1.ToUpper());
+                        for (int i = 0; i < 30; i++)
+                        {
+                            System.Threading.Thread.Sleep(50);
+                            Console.Write("-                  ");
+                        }
+                        break;
+                    }
+
+                    else if (hak <= 0)
+                    {
+                        // System.Threading.Thread.Sleep(1500);
+
+                        for (int i = 0; i < 6; i++)
+                        {
+                            System.Threading.Thread.Sleep(500);
+                            Console.Write("------ G   A   M   E   ------  O   V   E   R ------");
+                        }
+                        System.Threading.Thread.Sleep(1500);
+                        Console.WriteLine("\n\n\n-----  Malesef kaybettin {1} ! bulunaması gereken sayı {0} idi.  -----", rnd_sayi, user1.ToUpper());
+                        break;
+                    }
+                    else
+                    {
+
+                        if (rnd_sayi > kul_tahmin)
+                            Console.WriteLine("kalan hak {0} (daha buyuk bir sayı denesen iyi olacak)\n", hak);
+                        else Console.WriteLine("kalan hak {0} (daha kucuk bir sayı denesen iyi olacak)\n", hak);
+
+                    }
+                }
+                System.Threading.Thread.Sleep(1500);
+                Console.WriteLine("\n\nYeniden oynamak istiyorsanız d ye bas. Çıkmak için herhangibir e ' ye bas.");
+
+                bool son = true;
+                string c = "";
+                while (son)
+                {
+                    try
+                    {
+                        c = Console.ReadLine();
+
+
+
+                        if (c == "d")
+                        {
+                            son = false;
+                            continue;
+                        }
+                        else if (c == "e")
+                        {
+                            son = false;
+                            Environment.Exit(0);
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        Console.WriteLine("lutfen doğru giriş yapınız.");
+                    }
+                }
+
+
+            }
+
+        }
+    }
+}
